@@ -10,7 +10,7 @@ interface CountryProps {
 
 export default function Countries(props: CountryProps) {
   var country = props.match?.params?.country || "";
-  const [countries, setCountries] = useState<Array<Object>>([]);
+  const [countries, setCountries] = useState<Array<any>>([]);
   const [loading,setLoading]=useState(true);
   console.log("Country is ", country);
 

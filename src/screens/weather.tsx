@@ -4,14 +4,15 @@ import { Button, Container, Row, Col, Card, CardBody, CardTitle, Form, FormGroup
 
 
 interface WeatherProps {
-  match: any
+  match: any,
+  history:any
 }
 
 export default function Weather(props:WeatherProps) {
   var capital = props.match?.params?.capital || "";
 
   var apiKey="82ce4d88c966a0cd9283e61889a06e7f";
-  const [weather,setWeather]=useState(undefined);
+  const [weather,setWeather]=useState<any>(undefined);
   const [loading,setLoading]=useState(true);
 
 
@@ -38,7 +39,7 @@ export default function Weather(props:WeatherProps) {
     </div>
   }
 
-    return (
+    return (typeof weather === "object" ? 
       <Container className="mb-5">
       <Row className="mt-5">
         <Col md="6" className={"mx-auto"}>
@@ -58,10 +59,25 @@ export default function Weather(props:WeatherProps) {
                   <span className="d-inline-block w-25">wind_speed</span>: {weather.wind_speed}
                 </ListGroupItem>
                 <ListGroupItem>
-                  <span className="d-inline-block w-25">precip</span>: {Weather.precip || "0"}
+                  <span className="d-inline-block w-25">precip</span>: {weather.precip || "0"}
                 </ListGroupItem>
               </ListGroup>
               <Button className="mt-5 float-right" onClick={()=>props.history.goBack()}>Go Back</Button>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </Container>    
+    :
+    <Container>
+      <Row className="mt-5">
+        <Col md="6" className={"mx-auto"}>
+          <Card className="w-100 bg-dark">
+            <CardBody>
+              <CardTitle className="text-light">
+                No Weather Found
+                      </CardTitle>
+              <Button className="mt-5 float-right" onClick={() => props.history.goBack()}>Go Back</Button>
             </CardBody>
           </Card>
         </Col>
